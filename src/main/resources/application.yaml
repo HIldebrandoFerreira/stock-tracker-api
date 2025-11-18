@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+spring:
+  data:
+    # docker run -d --name mongo4 -p 27017:27017 mongo:4
+    mongodb:
+      host: localhost
+      port: 27017
+      database: stocktraker
