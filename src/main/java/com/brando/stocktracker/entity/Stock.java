@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
@@ -13,13 +14,13 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collation = "stock")
+@Document(collection = "stock")
 public class Stock {
     @Id
     private String id;
     private String stock;
     @Transient
-    private String price;
+    private BigDecimal price;
     @DBRef
     private List<StockPurchase> purchases;
     //private User user;

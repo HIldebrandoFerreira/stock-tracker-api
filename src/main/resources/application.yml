@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/stocktracker
+    redis:
+      url: redis://:sa@localhost:6379
+  cache:
+    redis:
+      time-to-live: 86400
+
+springdoc:
+  api-docs:
+    path: /api/api-docs
+  swagger-ui:
+    path: /swagger/index.html
+
+stock:
+  client:
+    brapi:
+      active: false
+      url: https://brapi.dev/api/quote
+      token: '4pFNNjDK9TUM1JRGYzztDb'
+
+security:
+  secretLoginKey: "a-minha-chave-secreta"
