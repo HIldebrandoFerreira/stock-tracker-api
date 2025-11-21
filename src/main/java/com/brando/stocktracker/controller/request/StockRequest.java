@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class StoqueRequest {
+public class StockRequest {
     private String stock;
     private long quantity;
     private LocalDate date;

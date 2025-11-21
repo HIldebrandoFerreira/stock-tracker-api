@@ -3,8 +3,10 @@ package com.brando.stocktracker.service;
 import com.brando.stocktracker.client.BrapiClient;
 import com.brando.stocktracker.client.response.BrapiStockDataResponse;
 import com.brando.stocktracker.client.response.BrapiStockResponse;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -15,14 +17,26 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class FindStockDetailService {
 
-    private final String token = "4pFNNjDK9TUM1JRGYzztDb";
+    @Value("${stock.client.brapi.token}")
+    private String token;
+
     private final BrapiClient brapiClient;
 
-    @Cacheable(value = "acao", key = "#stock")
+    @Cacheable(value = "acao", key="#stock")
     public Optional<BrapiStockDataResponse> getBrapiStockDetail(String stock) {
         log.info("Consultando informações da ação: {} na Brapi", stock);
-        BrapiStockResponse brapiStockResponse =brapiClient.getStock(stock, token);
-        log.info("Retorno Brapi da ação {}: {}", stock, brapiStockResponse.getResults().get(0));
-        return  Optional.of(brapiStockResponse.getResults().get(0));
+        try {
+            BrapiStockResponse brapiStockResponse = brapiClient.getStock(stock, token);
+
+            log.info("Retorno Brapi da ação {}: {}", stock, brapiStockResponse.getResults().get(0));
+            return Optional.of(brapiStockResponse.getResults().get(0));
+
+        } catch (FeignException e) {
+            log.error("Erro ao consultar a ação {}: {}", stock, e.getMessage());
+            return Optional.empty();
+        } catch (Exception ex) {
+            log.error("Erro desconhecido ao consultar a ação: {} na Brapi. {}", stock, ex.getMessage());
+            return Optional.empty();
+        }
     }
 }
