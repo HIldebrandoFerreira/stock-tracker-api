@@ -22,9 +22,9 @@ public class OpenAPIConfig {
     @Bean
     OpenAPI myOpenAPI() {
         Contact contact = new Contact();
-        contact.setEmail("renanlessa@gmail.com");
+        contact.setEmail("hildebrandoweb@gmail.com");
         contact.setName("Renan Lessa");
-        contact.setUrl("https://www.youtube.com/@paneladev");
+        contact.setUrl("https://www.youtube.com/webrando");
 
         Info info = new Info()
                 .title("Stock Tracking Profile API")
