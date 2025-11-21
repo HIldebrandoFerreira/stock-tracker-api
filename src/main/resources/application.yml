@@ -25,7 +25,7 @@ stock:
     brapi:
       active: false
       url: https://brapi.dev/api/quote
-      token: '4pFNNjDK9TUM1JRGYzztDb'
+      token: 'seu-token-aqui'
 
 security:
   secretLoginKey: "a-minha-chave-secreta"
